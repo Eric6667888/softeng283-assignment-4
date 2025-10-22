@@ -48,4 +48,8 @@ public class CommandRevert {
     // Provide feedback that the command was redone
     feedbackService.sendFeedback("Redo: " + commandToRedo);
   }
+
+  public String sendRealFeedback(String message) {
+    return feedbackService.sendFeedback(message);
+  }
 }
