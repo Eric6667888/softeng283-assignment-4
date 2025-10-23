@@ -11,9 +11,7 @@ public class Command {
   }
 
   public String getCommands(int index) {
-    if (this.commandString.isEmpty()
-        || this.commandString.size() == 0
-        || this.commandString == null) {
+    if (this.commandString.isEmpty() || this.commandString == null) {
       return "No commands to get";
     }
     if (index < 0 || index >= this.commandString.size()) {
@@ -42,9 +40,7 @@ public class Command {
   }
 
   public void deleteCommand(int index) {
-    if (this.commandString.isEmpty()
-        || this.commandString.size() == 0
-        || this.commandString == null) {
+    if (this.commandString.isEmpty() || this.commandString == null) {
       throw new IllegalStateException("No commands to delete");
     }
     if (index < 0 || index >= this.commandString.size()) {

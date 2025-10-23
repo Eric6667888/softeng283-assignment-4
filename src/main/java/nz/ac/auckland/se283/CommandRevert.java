@@ -21,9 +21,7 @@ public class CommandRevert {
     if (commandToUndo.equals("No commands to get")) {
       throw new IllegalStateException("No commands to delete");
     }
-    if (commandToUndo.equals("Invalid command index")) {
-      throw new IndexOutOfBoundsException("Invalid command index");
-    }
+
     // Store the command to be undone for potential redo
     commandRevertString.add(commandToUndo);
     if (commandRevertString.size() > MAX_REVERT) {
@@ -36,9 +34,7 @@ public class CommandRevert {
   }
 
   public void redo() {
-    if (commandRevertString.isEmpty()
-        || commandRevertString.size() == 0
-        || commandRevertString == null) {
+    if (commandRevertString.isEmpty()) {
       throw new IllegalStateException("No commands to redo");
     }
     // Redo the last undone command
