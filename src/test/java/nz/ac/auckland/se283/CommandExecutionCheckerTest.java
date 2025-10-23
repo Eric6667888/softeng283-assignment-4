@@ -219,7 +219,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void runCommand_noStartCommand() {
+  public void runCommand_noStartCommand_throwsException() {
     // Player adds commands without a start command
     command.addCommand("go north");
     command.addCommand("end");
@@ -236,7 +236,24 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void runCommand_twiceStartCommand() {
+  public void runCommand_noEndCommand_throwsException() {
+    // Player adds commands without an end command
+    command.addCommand("start");
+    command.addCommand("go north");
+
+    // Simulate command execution
+    IllegalStateException exception =
+        assertThrows(
+            IllegalStateException.class,
+            () -> {
+              command.run();
+            });
+
+    assertEquals("Invalid command sequence", exception.getMessage());
+  }
+
+  @Test
+  public void runCommand_twiceStartCommand_throwsException() {
     // Player adds commands with two start commands
     command.addCommand("start");
     command.addCommand("go north");
