@@ -60,7 +60,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void undoCommand_whenNoCommandsAdded() {
+  public void undoCommand_whenNoCommandsAdded_throwsException() {
     // Attempt to undo a command when none have been added
     Exception exception =
         assertThrows(
@@ -74,7 +74,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void undoCommand_singleCommandDeleted() {
+  public void undoCommand_singleCommandDeleted_emptyList() {
     command.addCommand("go north");
     commandRevert.revert();
 
@@ -84,7 +84,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void undoCommand_10CommandsDeleted() {
+  public void undoCommand_10CommandsDeleted_emptyList() {
     // Player adds multiple commands
     add10Commands();
     // Undo all 10 commands one by one
@@ -96,7 +96,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void undoCommand_11CommandsDeleted() {
+  public void undoCommand_11CommandsDeleted_emptyList() {
     // Player adds multiple commands
     add10Commands();
     command.addCommand("go north");
@@ -110,7 +110,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void undoCommand_feedbackCalled() {
+  public void undoCommand_feedbackCalled_callOneTime() {
     FeedbackService mockFeedbackService = mock(FeedbackService.class);
     commandRevert = new CommandRevert(command, mockFeedbackService);
     command.addCommand("go north");
@@ -119,7 +119,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void redoCommand_whenNoCommandsToRedo() {
+  public void redoCommand_whenNoCommandsToRedo_throwsException() {
     command.addCommand("go north");
     // Attempt to redo a command when none have been undone
     Exception exception =
@@ -134,7 +134,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void redoCommand_singleCommandredo() {
+  public void redoCommand_singleCommandredo_output() {
     command.addCommand("go north");
     commandRevert.revert();
     // Attempt to redo a command with an valid index
@@ -145,7 +145,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void redoCommand_10CommandsRedo() {
+  public void redoCommand_10CommandsRedo_output() {
     // Player adds multiple commands
     add10Commands();
     command.addCommand("go north");
@@ -163,7 +163,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void redoCommand_11CommandsRedo() {
+  public void redoCommand_11CommandsRedo_throwsException() {
     // Player adds multiple commands
     add10Commands();
     command.addCommand("go north");
@@ -194,7 +194,7 @@ public class CommandEditCheckerTest {
   }
 
   @Test
-  public void redoCommand_feedbackCalled() {
+  public void redoCommand_feedbackCalled_once() {
     // Create a mock FeedbackService
     FeedbackService mockFeedbackService = mock(FeedbackService.class);
     commandRevert = new CommandRevert(command, mockFeedbackService);

@@ -15,7 +15,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void printCommand_whenPlayerAsked() {
+  public void printCommand_whenPlayerAsked_emptyCommandList() {
     // Player asked to print command
     String commandString = command.printCommand();
 
@@ -24,7 +24,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void printCommand_whenPlayerAddedCommand() {
+  public void printCommand_whenPlayerAddedCommand_output() {
     // Player adds a command
     command.addCommand("go north");
     String commandString = command.printCommand();
@@ -34,7 +34,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void printCommand_whenPlayerAddedMultipleCommands() {
+  public void printCommand_whenPlayerAddedMultipleCommands_output() {
     // Player adds multiple commands
     command.addCommand("go north");
     command.addCommand("go south");
@@ -44,7 +44,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void getStatus_isCommandStartRunning() {
+  public void getStatus_isCommandStartRunning_false() {
     // Check if the command is not running initially
     boolean commandStatus = command.getStatus();
 
@@ -53,7 +53,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void getStatus_isCommandEndRunning() {
+  public void getStatus_isCommandEndRunning_true() {
     // Player adds a command
     command.addCommand("start");
     command.addCommand("go north");
@@ -89,7 +89,16 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void addCommand_emptyCommand() {
+  public void getCommands_validIndex_returnsCommand() {
+    // Player tries to get a command with a valid index
+    String commandString = command.getCommands(0);
+
+    // Check if the returned command is as expected
+    assertEquals("No commands to get", commandString);
+  }
+
+  @Test
+  public void addCommand_emptyCommand_throwsException() {
     // Player adds an empty command
 
     IllegalArgumentException exception =
@@ -103,7 +112,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void addCommand_nullCommand() {
+  public void addCommand_nullCommand_throwsException() {
     // Player adds a null command
 
     IllegalArgumentException exception =
@@ -117,7 +126,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void addCommand_invalidCommand() {
+  public void addCommand_invalidCommand_throwsException() {
     IllegalArgumentException exception =
         assertThrows(
             IllegalArgumentException.class,
@@ -129,7 +138,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void deleteCommand_emptyCommandList() {
+  public void deleteCommand_emptyCommandList_throwsException() {
     // Player tries to delete a command from an empty command list
 
     IllegalStateException exception =
@@ -173,7 +182,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void deleteCommand_validIndex() {
+  public void deleteCommand_validIndex_throwsException() {
     // Player deletes a command with a valid index
     command.addCommand("go north");
     command.addCommand("go south");
@@ -201,7 +210,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void runCommand_invalidSequence() {
+  public void runCommand_invalidSequence_throwsException() {
     // Player adds commands without an end command
     command.addCommand("end");
     command.addCommand("go north");
@@ -272,7 +281,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void runCommand_validCommands() {
+  public void runCommand_validCommands_sequence() {
     // Player adds valid commands and runs them
     command.addCommand("start");
     command.addCommand("go north");
@@ -286,7 +295,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void runCommand_alreadyRunning() {
+  public void runCommand_alreadyRunning_throwsException() {
     // Player adds valid commands and runs them
     command.addCommand("start");
     command.addCommand("go north");
