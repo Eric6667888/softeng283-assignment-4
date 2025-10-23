@@ -281,6 +281,18 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
+  public void runCommand_twiceEndCommand_throwsException() {
+    // Player adds commands with two end commands
+    command.addCommand("start");
+    command.addCommand("end");
+
+    assertDoesNotThrow(
+        () -> {
+          command.run();
+        });
+  }
+
+  @Test
   public void runCommand_validCommands_sequence() {
     // Player adds valid commands and runs them
     command.addCommand("start");
