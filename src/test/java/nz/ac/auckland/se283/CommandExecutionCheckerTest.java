@@ -143,7 +143,7 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
-  public void deleteCommand_invalidIndex() {
+  public void deleteCommand_invalidIndex_throwsException() {
     // Player tries to delete a command with an invalid index
     command.addCommand("go north");
 
@@ -152,6 +152,21 @@ public class CommandExecutionCheckerTest {
             IndexOutOfBoundsException.class,
             () -> {
               command.deleteCommand(5);
+            });
+
+    assertEquals("Invalid command index", exception.getMessage());
+  }
+
+  @Test
+  public void deleteCommand_negativeIndex_throwsException() {
+    // Player tries to delete a command with a negative index
+    command.addCommand("go north");
+
+    IndexOutOfBoundsException exception =
+        assertThrows(
+            IndexOutOfBoundsException.class,
+            () -> {
+              command.deleteCommand(-1);
             });
 
     assertEquals("Invalid command index", exception.getMessage());
