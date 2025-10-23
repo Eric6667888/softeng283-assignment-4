@@ -69,6 +69,16 @@ public class CommandExecutionCheckerTest {
   }
 
   @Test
+  public void getCommands_invalidIndex() {
+    command.addCommand("go north");
+    // Player tries to get a command with an invalid index
+    String commandString = command.getCommands(-1);
+
+    // Check if the returned message is as expected
+    assertEquals("Invalid command index", commandString);
+  }
+
+  @Test
   public void addCommand_emptyCommand() {
     // Player adds an empty command
 
