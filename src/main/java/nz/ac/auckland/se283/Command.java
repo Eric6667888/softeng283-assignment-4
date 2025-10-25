@@ -20,6 +20,15 @@ public class Command {
     return this.commandString.get(index);
   }
 
+  public int getFirstCommandIndex(String command) {
+    for (int i = 0; i < this.commandString.size(); i++) {
+      if (this.commandString.get(i).equals(command)) {
+        return i;
+      }
+    }
+    return -1; // Command not found
+  }
+
   public void addCommand(String command) {
     // Validate the command input
     if (command == null || command.isEmpty()) {
