@@ -326,4 +326,18 @@ public class CommandExecutionCheckerTest {
 
     assertEquals("Command is already running", exception.getMessage());
   }
+
+  @Test
+  public void getFirstCommandIndex_commandExists_returnsIndex() {
+    // Player adds commands
+    command.addCommand("start");
+    command.addCommand("go north");
+    command.addCommand("end");
+
+    // Get the index of the "go north" command
+    int index = command.getFirstCommandIndex("go north");
+
+    // Check if the returned index is as expected
+    assertEquals(1, index);
+  }
 }
